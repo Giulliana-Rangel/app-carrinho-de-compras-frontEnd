@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
+import Search from './Search';
 
 class Home extends React.Component {
   constructor() {
@@ -38,7 +39,8 @@ class Home extends React.Component {
             Carrinho
           </button>
         </Link>
-        <div>
+        <Search />
+        <div className="categories">
           {categories.map((item) => (
             <button
               data-testid="category"
