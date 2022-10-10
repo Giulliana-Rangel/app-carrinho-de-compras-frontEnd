@@ -41,6 +41,7 @@ class Search extends React.Component {
           <button
             type="button"
             data-testid="query-button"
+            value=""
             onClick={ handleClick }
           >
             Buscar
@@ -60,7 +61,7 @@ class Search extends React.Component {
 
 Search.propTypes = {
   query: PropTypes.string.isRequired,
-  products: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  products: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   showList: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,

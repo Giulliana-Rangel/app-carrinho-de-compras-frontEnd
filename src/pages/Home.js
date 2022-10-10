@@ -22,14 +22,16 @@ class Home extends React.Component {
     });
   };
 
-  handleClick = async () => {
+  handleClick = async ({ target }) => {
+    const { value } = target;
     const { query } = this.state;
-    const response = await getProductsFromCategoryAndQuery('', query);
+    const response = await getProductsFromCategoryAndQuery(value, query);
     const { results } = response;
     console.log(query);
     this.setState({
       products: results,
       showList: true,
+      query: '',
     });
   };
 
@@ -60,6 +62,8 @@ class Home extends React.Component {
                 type="button"
                 className="category-button"
                 key={ item.id }
+                value={ item.id }
+                onClick={ this.handleClick }
               >
                 {item.name}
               </button>
