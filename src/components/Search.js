@@ -1,39 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import './Search.css';
 
 class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: '',
-      products: [],
-      showList: false,
-    };
-  }
-
-  handleChange = ({ target }) => {
-    this.setState({
-      [target.name]: target.value,
-    });
-  };
-
-  handleClick = async () => {
-    const { query } = this.state;
-    const response = await getProductsFromCategoryAndQuery('', query);
-    const { results } = response;
-    console.log(query);
-    this.setState({
-      products: results,
-      showList: true,
-    });
-  };
+  // state = {
+  // };
 
   render() {
-    const { query, products, showList } = this.state;
+    const { query, products, showList, handleChange, handleClick } = this.props;
     const productList = products.length === 0 ? <p>Nenhum produto foi encontrado</p>
       : (
         products.map((product) => (
           <div
+            className="list__item"
             key={ product.id }
             data-testid="product"
           >
@@ -44,7 +23,12 @@ class Search extends React.Component {
         ))
       );
     return (
-      <>
+      <section className="search-container">
+        <p
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
         <label htmlFor="query">
           <input
             type="text"
@@ -52,19 +36,34 @@ class Search extends React.Component {
             name="query"
             id="query"
             value={ query }
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           />
           <button
             type="button"
             data-testid="query-button"
-            onClick={ this.handleClick }
+            onClick={ handleClick }
           >
             Buscar
           </button>
         </label>
-        { showList && productList }
-      </>
+        <section className="list-container">
+          { showList && productList }
+        </section>
+      </section>
     );
   }
 }
+
+// Search.defaultProps = {
+//   products: null,
+// };
+
+Search.propTypes = {
+  query: PropTypes.string.isRequired,
+  products: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  showList: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
+
 export default Search;

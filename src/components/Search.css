@@ -1,0 +1,9 @@
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+};
+
+.list__item {
+  width: 20px;
+};
