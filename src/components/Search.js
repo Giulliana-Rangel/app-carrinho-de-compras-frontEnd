@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Search.css';
 
 class Search extends React.Component {
@@ -11,15 +12,21 @@ class Search extends React.Component {
     const productList = products.length === 0 ? <p>Nenhum produto foi encontrado</p>
       : (
         products.map((product) => (
-          <div
-            className="list__item"
+
+          <Link
+            data-testid="product-detail-link"
+            to={ `/details/${product.id}` }
             key={ product.id }
-            data-testid="product"
           >
-            <img src={ product.thumbnail } alt={ product.title } />
-            <p>{ product.title }</p>
-            <p>{ `Valor R$: ${product.price}`}</p>
-          </div>
+            <div
+              className="list__item"
+              data-testid="product"
+            >
+              <img src={ product.thumbnail } alt={ product.title } />
+              <p>{ product.title }</p>
+              <p>{ `Valor R$: ${product.price}`}</p>
+            </div>
+          </Link>
         ))
       );
     return (
