@@ -7,6 +7,7 @@ class Search extends React.Component {
     this.state = {
       query: '',
       products: [],
+      showList: false,
     };
   }
 
@@ -18,16 +19,30 @@ class Search extends React.Component {
 
   handleClick = async () => {
     const { query } = this.state;
-
-    const response = await getProductsFromCategoryAndQuery(query);
+    const response = await getProductsFromCategoryAndQuery('', query);
     const { results } = response;
+    console.log(query);
     this.setState({
       products: results,
+      showList: true,
     });
   };
 
   render() {
-    const { query, products } = this.state;
+    const { query, products, showList } = this.state;
+    const productList = products.length === 0 ? <p>Nenhum produto foi encontrado</p>
+      : (
+        products.map((product) => (
+          <div
+            key={ product.id }
+            data-testid="product"
+          >
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p>{ product.title }</p>
+            <p>{ `Valor R$: ${product.price}`}</p>
+          </div>
+        ))
+      );
     return (
       <>
         <label htmlFor="query">
@@ -39,7 +54,6 @@ class Search extends React.Component {
             value={ query }
             onChange={ this.handleChange }
           />
-
           <button
             type="button"
             data-testid="query-button"
@@ -48,19 +62,7 @@ class Search extends React.Component {
             Buscar
           </button>
         </label>
-
-        { !products.length > 1 ? <p>Nenhum Produto foi encontrado</p>
-          : (
-            products.map((product) => (
-              <div
-                key={ product.id }
-                data-testid="product"
-              >
-                <img src={ product.thumbnail } alt={ product.title } />
-                <p>{ product.title }</p>
-                <p>{ `Valor R$: ${product.price}`}</p>
-              </div>
-            )))}
+        { showList && productList }
       </>
     );
   }

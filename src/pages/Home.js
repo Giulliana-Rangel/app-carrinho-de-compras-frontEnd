@@ -40,7 +40,7 @@ class Home extends React.Component {
           </button>
         </Link>
         <Search />
-        <div>
+        <div className="categories">
           {categories.map((item) => (
             <button
               data-testid="category"
