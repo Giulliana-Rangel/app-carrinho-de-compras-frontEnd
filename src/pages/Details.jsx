@@ -47,7 +47,7 @@ export default class Details extends Component {
           <h2 data-testid="product-detail-name">{nome}</h2>
           <img src={ imagem } alt={ nome } data-testid="product-detail-image" />
           <p data-testid="product-detail-price">
-            R$
+            <span>R$</span>
             {preco}
           </p>
 
