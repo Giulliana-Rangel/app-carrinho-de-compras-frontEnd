@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  flex-direction: row;
+}
+
+.categories {
+  width: 180px;
+}
+
+.category-button {
+  width: 100%;
+}
